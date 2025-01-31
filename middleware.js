@@ -184,3 +184,13 @@ module.exports.varifyUserEmail = async (req, res, next) => {
 		return res.redirect(`/update-form/${req.user._id}`)
 	}
 };
+module.exports.isLoggedIn = (req, res, next) => {
+	if (!req.isAuthenticated()) {
+	  req.flash("error", "You must be logged in");
+	  return res.redirect("/login");
+	}
+	next();
+  };
+
+  
+  

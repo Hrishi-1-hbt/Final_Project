@@ -2,35 +2,33 @@
 <link rel="stylesheet" href="/css/button-style.css">
 <link rel="stylesheet" href="/css/auth-account.css">
 <body>
-    <!-- <div class="row mt-3 mx-auto">
-        <div class="col-md-8 mx-auto"> -->
-    <div id="account-set-main">
-        <div id="account-set">
-
-            <h2>SignUp on Airbnb Project</h2>
-            <h4 class="mt-2 mb-3">Have an account? <a href="/login">Log In</a></h4>
-            <div id="auth-account">
-                <a href="/auth/google">
-                    <img src="/Icon/google.png" alt="">
-                    <div>Continue with Google&nbsp;&nbsp;&nbsp;</div>
+    <div id="account-set-main" class="container mt-5">
+        <div id="account-set" class="card shadow-lg p-4">
+            <h2 class="text-center mb-3">Sign Up on Wanderlust </h2>
+            <h4 class="text-center mt-2 mb-3">Have an account? <a href="/login" class="text-primary">Log In</a></h4>
+            
+            <!-- Social Auth Links -->
+            <div id="auth-account" class="text-center mb-4">
+                <a href="/auth/google" class="btn btn-light w-100 mb-2 d-flex justify-content-center align-items-center">
+                    <img src="/Icon/google.png" alt="Google" style="width: 20px; height: 20px;" class="me-2">Continue with Google
                 </a>
-                <a href="/auth/facebook">
-                    <img src="/Icon/facebook_auth.png" alt="">
-                    <div>Continue with Facebook</div>
+                <a href="/auth/facebook" class="btn btn-light w-100 d-flex justify-content-center align-items-center">
+                    <img src="/Icon/facebook_auth.png" alt="Facebook" style="width: 20px; height: 20px;" class="me-2">Continue with Facebook
                 </a>
-                <p class="mt-2">&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&nbsp;<b>Or</b>&nbsp;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&nbsp;</p>
+                <p class="mt-3 text-muted"><strong>Or</strong></p>
             </div>
-            <form action="/signup" method="post" class="needs-validation" novalidate>
 
+            <!-- Sign Up Form -->
+            <form action="/signup" method="post" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label for="fName" class="form-label">First Name</label>
-                    <input id="fName" type="text" placeholder="Enter First Name" name="fName" class="form-control border border-black border-opacity-50" required>
+                    <input id="fName" type="text" placeholder="Enter First Name" name="fName" class="form-control" required>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">First Name should be valid</div>
                 </div>
                 <div class="mb-3">
                     <label for="lName" class="form-label">Last Name</label>
-                    <input id="lName" type="text" placeholder="Enter Last Name" name="lName" class="form-control border border-black border-opacity-50" required>
+                    <input id="lName" type="text" placeholder="Enter Last Name" name="lName" class="form-control" required>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Last Name should be valid</div>
                 </div>
@@ -41,30 +39,34 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">@</span>
                         </div>
-                        <input id="username" type="text" placeholder="Enter Username" name="username" class="form-control border border-black border-opacity-50" required>
+                        <input id="username" type="text" placeholder="Enter Username" name="username" class="form-control" required>
                     </div>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Username should be valid</div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email" placeholder="Enter Email" name="email" class="form-control border border-black border-opacity-50" required>
+                    <input id="email" type="email" placeholder="Enter Email" name="email" class="form-control" required>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Email should be valid</div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input id="password" type="password" placeholder="Enter Password" name="password" class="form-control border border-black border-opacity-50" minlength="8" required>
+                    <input id="password" type="password" placeholder="Enter Password" name="password" class="form-control" minlength="8" required>
                     <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Please lengthen this text to 8 charaters or more.</div>
+                    <div class="invalid-feedback">Password should be at least 8 characters</div>
                 </div>
-                <div class="form-check mb-2 mr-sm-2">
-                    <input class="form-check-input mt-2" style="opacity: 1;" type="checkbox" id="inlineFormCheck" required>
-                    <label class="form-check-label ms-3 mt-1" for="inlineFormCheck">
+                
+                <!-- Remember me checkbox -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" required>
+                    <label class="form-check-label" for="inlineFormCheck">
                       Remember me
                     </label>
                 </div>
-                <button class="btn btn-primary styleBtn">SignUp</button>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary w-100">Sign Up</button>
             </form>
         </div>
     </div>

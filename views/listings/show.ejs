@@ -24,20 +24,20 @@
                     <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
                 </div>
                 <div class="card-body ms-1">
-                    <p class="card-text"><b>Owned by :</b> <b><i>@<%= listing.owner.username %></i></b></p>
-                    <p class="card-text"><b>Description :</b> <%= listing.description %> </p>
-                    <p class="card-text"><b>Price :</b> &#8377; <%= listing.price.toLocaleString("en-In") %> / night </p>
-                    <p class="card-text"><b>Country :</b> <%= listing.location %>, <%= listing.country %>  <i class="fa-solid fa-location-dot" style="margin-right: 1rem; font-size: 1.25rem;"></i></p>
-                    <p class="card-text"><b>Category :</b> <%= listing.category.slice(",").join(", ") %> </p>
+                    <p class="card-text"><b>Hosted by :</b> <b><i>@<%= listing.owner.username %></i></b></p>
+                    <p class="card-text"> <%= listing.description %> </p>
+                    <p class="card-text"><%= listing.price.toLocaleString("en-In") %> / night </p>
+                    <p class="card-text"> <%= listing.location %>, <%= listing.country %>  <i class="fa-solid fa-location-dot" style="margin-right: 1rem; font-size: 1.25rem;"></i></p>
+                    <p class="card-text"><%= listing.category.slice(",").join(", ") %> </p>
                 </div>
             </div>
             <!-- Authorization  -->
             <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
             <div class="btns offset-2 ">
                 <div class="btns-edit">
-                    <a type="button" href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn styleBtn">Edit</a>
+                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
                     <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="needs-validation">
-                        <button type="reset" class="btn btn-danger offset-4 del-btn styleBtn" id="delete-confirm">Delete</button>
+                        <button class="btn btn-dark col-1 offset-3 edit-btn">Delete</button>
                         <div class="fnx-fixed-dis">
                             <div class="delete-fnx" style="display: none;">
                                 <p>I want to delete this listings.</p>
@@ -49,6 +49,14 @@
                     </form>
                 </div>
             </div>
+            <% if (currUser) { %>
+                <div class="btns mt-3">
+                  <a href="/listings/<%= listing._id %>/book" class="btn btn-primary col-2">Book Now</a>
+                </div>
+              <% } else { %>
+                <p>Please <a href="/login">login</a> to make a booking.</p>
+              <% } %>
+              
 
             <% } %>
             <!-- --------------- review ------------- -->

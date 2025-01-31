@@ -23,9 +23,24 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const bookingRouter = require("./routes/booking.js");
+
+
+
 
 // const MONGO_URL ="mongodb://127.0.0.1:27017/wanderlust";
-const DB_URL = process.env.ATLASDB_URL;
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/myproject";
+// const DB_URL = process.env.ATLASDB_URL;
+
+mongoose
+  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("MongoDB connection error:", err);
+  });
+  
 main()
 	.then(() => {
 		console.log("connected to DB");
@@ -34,13 +49,13 @@ main()
 
 async function main() {
 	//   await mongoose.connect(MONGO_URL);
-	await mongoose.connect(DB_URL);
+	await mongoose.connect(dbUrl);
 }
 
-app.listen(8080, () => {
-	console.log("server is listening to port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`);
 });
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -49,7 +64,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public/")));
 
 const store = MongoStore.create({
-	mongoUrl: DB_URL,
+	mongoUrl: dbUrl,
 	crypto: {
 		secret: process.env.SECRET,
 	},
@@ -107,6 +122,7 @@ app.use("/", userRouter);
 app.use("/profile", profileRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/listings", bookingRoutes);
 app.all("*", (req, res, next) => {
 	next(new ExpressError(404, "Page Not Found!"));
 });
