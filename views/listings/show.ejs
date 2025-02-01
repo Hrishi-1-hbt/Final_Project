@@ -58,7 +58,7 @@
     <!-- Booking Button: Visible for all logged-in users (including the owner if desired) -->
     <% if (currUser) { %>
       <div class="btns mt-3">
-        <a href="/listings/<%= listing._id%>/book" class="btn btn-primary col-2">Book Now</a>
+        <a href="/listings/<%= listing._id%>/book" class="btn btn-primary offset-2 col-2">Book Now</a>
       </div>
     <% } else { %>
       <p>Please <a href="/login">login</a> to make a booking.</p>

@@ -1,12 +1,89 @@
 <% layout("/layouts/boilerplate") %>
 
-<h1>Book Listing: <%= listing.title %></h1>
-<form action="/listings/<%= listing._id %>/book" method="POST">
-  <label for="dateFrom">Start Date:</label>
-  <input type="date" name="booking[dateFrom]" required>
+<div class="container mt-5">
+  <h1 class="mb-4">Book Listing: <%= listing.title %></h1>
+  <form action="/listings/<%= listing._id %>/book" method="POST" id="bookingForm">
+    
+    <!-- Start Date -->
+    <div class="mb-3">
+      <label for="dateFrom" class="form-label">Start Date</label>
+      <input type="date" class="form-control" id="dateFrom" name="booking[dateFrom]" required>
+    </div>
+    
+    <!-- End Date -->
+    <div class="mb-3">
+      <label for="dateTo" class="form-label">End Date</label>
+      <input type="date" class="form-control" id="dateTo" name="booking[dateTo]" required>
+    </div>
+    
+    <!-- Number of Rooms -->
+    <div class="mb-3">
+      <label for="rooms" class="form-label">Number of Rooms</label>
+      <input type="number" class="form-control" id="rooms" name="booking[rooms]" value="1" min="1" required>
+    </div>
+    
+    <!-- Email Address -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="email" name="booking[email]" placeholder="your.email@example.com" required>
+    </div>
+    
+    <!-- Phone Number -->
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="phone" name="booking[phone]" placeholder="e.g., 9876543210" required pattern="[0-9]{10}">
+      <div class="form-text">Enter a 10-digit phone number.</div>
+    </div>
+    
+    <!-- Total Payment (Calculated in INR) -->
+    <div class="mb-3">
+      <label for="totalPayment" class="form-label">Total Payment (INR)</label>
+      <input type="text" class="form-control" id="totalPayment" name="booking[totalPayment]" readonly>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Confirm Booking</button>
+  </form>
+</div>
 
-  <label for="dateTo">End Date:</label>
-  <input type="date" name="booking[dateTo]" required>
-
-  <button type="submit" class="btn btn-success mt-3">Confirm Booking</button>
-</form>
+<script>
+  // Assuming listing.price is the nightly rate in INR.
+  const pricePerNight = <%= listing.price %>;
+  // Additional fee percentage (for example, 10% service fee)
+  const additionalFeePercentage = 10;
+  
+  function calculateTotal() {
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
+    const rooms = document.getElementById('rooms').value;
+    const totalPaymentField = document.getElementById('totalPayment');
+    
+    if (dateFrom && dateTo) {
+      const start = new Date(dateFrom);
+      const end = new Date(dateTo);
+      const diffTime = end - start;
+      
+      // Calculate the number of days (ensure it's at least one day)
+      const diffDays = diffTime / (1000 * 60 * 60 * 24);
+      const days = diffDays > 0 ? diffDays : 1;
+      
+      // Base amount calculation: days * price per night * number of rooms
+      const baseAmount = days * pricePerNight * parseInt(rooms, 10);
+      
+      // Calculate additional fee (e.g., 10% of the base amount)
+      const additionalFee = baseAmount * additionalFeePercentage / 100;
+      
+      // Final total amount includes the base amount plus additional fee
+      const finalTotal = baseAmount + additionalFee;
+      
+      // Update the total field with the rupee symbol
+      totalPaymentField.value = "₹" + finalTotal.toFixed(2);
+    } else {
+      totalPaymentField.value = '';
+    }
+  }
+  
+  // Attach event listeners to recalculate whenever values change.
+  document.getElementById('dateFrom').addEventListener('change', calculateTotal);
+  document.getElementById('dateTo').addEventListener('change', calculateTotal);
+  document.getElementById('rooms').addEventListener('input', calculateTotal);
+</script>

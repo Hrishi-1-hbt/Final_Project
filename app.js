@@ -123,7 +123,7 @@ app.use("/", userRouter);
 app.use("/profile", profileRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/bookings", bookingRoutes);
+app.use("/listings", bookingRoutes);
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError(404, "Page Not Found!"));
