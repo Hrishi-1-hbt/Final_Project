@@ -23,7 +23,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const bookingRouter = require("./routes/booking.js");
+const bookingRoutes = require("./routers/booking");
+
 
 
 
@@ -122,7 +123,8 @@ app.use("/", userRouter);
 app.use("/profile", profileRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/listings", bookingRoutes);
+app.use("/bookings", bookingRoutes);
+
 app.all("*", (req, res, next) => {
 	next(new ExpressError(404, "Page Not Found!"));
 });

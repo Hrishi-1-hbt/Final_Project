@@ -1,7 +1,6 @@
 <% layout("/layouts/boilerplate") %>
 
 <h1>Book Listing: <%= listing.title %></h1>
-
 <form action="/listings/<%= listing._id %>/book" method="POST">
   <label for="dateFrom">Start Date:</label>
   <input type="date" name="booking[dateFrom]" required>
