@@ -9,7 +9,7 @@ fileInput.addEventListener("click", function () {
   }
 });
 varify.addEventListener("click", function () {
-  const maxSize = 100 * 1024; // 100KB in bytes
+  const maxSize = 500 * 1024; // 500KB in bytes
   console.log("click button");
 
   if (fileInput.files.length === 0) {
@@ -23,7 +23,7 @@ varify.addEventListener("click", function () {
 
   const file = fileInput.files[0];
   if (file.size > maxSize) {
-    errorContainer.innerText = "File size exceeds the limit (100KB).";
+    errorContainer.innerText = "File size exceeds the limit (500KB).";
     errorContainer.style.color = "red";
     if (errorContainer.innerText != "") {
       varify.checked = false;

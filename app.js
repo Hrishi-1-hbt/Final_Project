@@ -29,12 +29,13 @@ const bookingRoutes = require("./routers/booking");
 
 
 
-// const MONGO_URL ="mongodb://127.0.0.1:27017/wanderlust";
-const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/myproject";
-// const DB_URL = process.env.ATLASDB_URL;
+
+// const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/myproject";
+
+const DB_URL = process.env.ATLASDB_URL;
 
 mongoose
-  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -50,7 +51,7 @@ main()
 
 async function main() {
 	//   await mongoose.connect(MONGO_URL);
-	await mongoose.connect(dbUrl);
+	await mongoose.connect(DB_URL);
 }
 
 const PORT = process.env.PORT || 8080;
@@ -65,7 +66,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public/")));
 
 const store = MongoStore.create({
-	mongoUrl: dbUrl,
+	mongoUrl: DB_URL,
 	crypto: {
 		secret: process.env.SECRET,
 	},
