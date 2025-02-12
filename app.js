@@ -25,11 +25,6 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const bookingRoutes = require("./routers/booking");
 
-
-
-
-
-
 // const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/myproject";
 
 const DB_URL = process.env.ATLASDB_URL;
@@ -58,6 +53,13 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
 });
+
+// Enable browser inspection by disabling security policy
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src * 'unsafe-inline' 'unsafe-eval'");
+  next();
+});
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -103,6 +105,7 @@ app.use((req, res, next) => {
 	res.locals.error = req.flash("error");
 	res.locals.currUser = req.user;
 	console.log("<<========================START========================>>");
+	console.log(`Request :- ${req}`);
 	console.log(`rawheaders:- ${req.get("rawHeaders")}`);
 	console.log(`rawheaders:- ${req.rawHeaders.slice(";").join("     ")}`);
 	console.log(`Country name:- ${req.get("cf-ipcountry")}`);

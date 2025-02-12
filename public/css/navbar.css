@@ -188,3 +188,12 @@
         height: 4.5rem;
     }
 }
+#google_translate_element {
+    position: absolute;
+    top: 1.5rem;
+    right: 12rem; /* Adjust position as needed */
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
